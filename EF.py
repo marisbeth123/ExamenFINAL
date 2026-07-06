@@ -1,7 +1,7 @@
 import sys
 import time
 
-# Matriz de distancias en km (5 ciudades, origen en 0)
+
 distancias = [
     [0, 10, 15, 20, 25],
     [10, 0, 35, 25, 18],
@@ -16,7 +16,7 @@ memo = [[-1] * N for _ in range(1 << N)]
 ruta_siguiente = [[-1] * N for _ in range(1 << N)]
 
 def resolver_tsp_pd(mask, u):
-    # Caso Base: Todas las ciudades visitadas (Todos los bits en 1)
+    
     if mask == (1 << N) - 1:
         return distancias[u][0]
     
@@ -27,7 +27,7 @@ def resolver_tsp_pd(mask, u):
     mejor_vecino = -1
     
     for v in range(N):
-        # Si la ciudad 'v' no ha sido visitada (bit 'v' es 0)
+       
         if (mask & (1 << v)) == 0:
             nuevo_costo = distancias[u][v] + resolver_tsp_pd(mask | (1 << v), v)
             if nuevo_costo < costo_minimo:
@@ -51,8 +51,6 @@ def reconstruir_ruta():
         u = v
     camino.append(0)
     return camino
-
-# --- MEDICIÓN DE TIEMPO ---
 inicio = time.perf_counter()
 costo_optimo = resolver_tsp_pd(1, 0)
 ruta_optima = reconstruir_ruta()
